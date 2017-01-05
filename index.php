@@ -1,6 +1,7 @@
 <?php
 use App\Components\Router;
 use App\Components\View;
+use App\Components\E404Exception;
 
 //FRONT CONTROLLER
 
@@ -23,5 +24,9 @@ try {
     $error->error = $e->getMessage();
     $error->display('errors/403.php');
     die;
-
+} catch (E404Exception $e) {
+    $error = new View();
+    $error->error = $e->getMessage();
+    $error->display('errors/404.php');
+    die;
 }
