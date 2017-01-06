@@ -26,8 +26,9 @@ class CatalogController
         $categoryProducts = Product::getProductsListByCategory($categoryId);
 
         $view = new View();
+        $view->categoryId = $categoryId;
         $view->categories = $categories;
-        $view->$categoryProducts = $categoryProducts;
+        $view->categoryProducts = $categoryProducts;
         $view->display('catalog/category.php');
         return true;
     }

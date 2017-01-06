@@ -19,7 +19,11 @@ class Router
         foreach ($this->routes as $uriPattern => $path) {
             //3. Compare $uriPattern and $uri
             if (preg_match("~$uriPattern~", $uri)) {
-                $segments = explode('/', $path);
+
+                // Получаем внутренний путь из внешнего согласно правилу.
+
+                $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+                $segments = explode('/', $internalRoute);
                 $controllerName = ucfirst(array_shift($segments) . 'Controller');
 
                 $actionName = 'action' . ucfirst(array_shift($segments));

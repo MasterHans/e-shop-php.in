@@ -30,22 +30,22 @@ class Product extends ActiveRecord
 
     public static function getProductsListByCategory($categoryId = false)
     {
-        if ($categoryId) {
-            $sql = "SELECT id, name, price, image, is_new FROM " . static::$table
-                . "WHERE status = '1' AND category_id = '$categoryId' "
-                . ' ORDER BY id DESC '
-                . ' LIMIT ' . self::SHOW_BY_DEFAULT;
 
-            $db = new DB();
-            $db->setClassName(get_called_class());
-            $res = $db->query($sql);
+        $sql = 'SELECT id, name, price, image, is_new FROM ' . static::$table
+            . ' WHERE status = "1" AND category_id = :category_id'
+            . ' ORDER BY id DESC '
+            . ' LIMIT ' . self::SHOW_BY_DEFAULT;
 
-            if (empty ($res)) {
-                $e = new E404Exception('Can not find category!');
-                throw $e;
-            } else {
-                return $res;
-            }
+        $db = new DB();
+        $db->setClassName(get_called_class());
+        $res = $db->query($sql, [':category_id' => $categoryId]);
+
+        if (empty ($res))
+        {
+            $e = new E404Exception('Can not find category!');
+            throw $e;
+        } else {
+            return $res;
         }
         return false;
     }
