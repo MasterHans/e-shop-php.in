@@ -9,7 +9,11 @@
                         <?php foreach ($categories as $categoryItem): ?>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#"><?= $categoryItem['name'] ?></a></h4>
+                                    <h4 class="panel-title">
+                                        <a href="/category/<?= $categoryItem->id ?>">
+                                            <?= $categoryItem->name ?>
+                                        </a>
+                                    </h4>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -25,18 +29,20 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="view-product">
-                                <img src="images/product-details/1.jpg" alt=""/>
+                                <img src="/template/images/home/<?= $product->image;?>" alt=""/>
                             </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="product-information"><!--/product-information-->
-                                <img src="images/product-details/new.jpg" class="newarrival" alt=""/>
+                                <?php if ($product->is_new == 1): ?>
+                                    <img src="/template/images/product-details/new.jpg" class="newarrival" alt=""/>
+                                <?php endif; ?>
 
-                                <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+                                <h2><?= $product->name;?></h2>
 
-                                <p>Код товара: 1089772</p>
+                                <p>Код товара: <?= $product->code;?></p>
                                         <span>
-                                            <span>US $59</span>
+                                            <span>US <?= $product->price;?></span>
                                             <label>Количество:</label>
                                             <input type="text" value="3"/>
                                             <button type="button" class="btn btn-fefault cart">

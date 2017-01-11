@@ -35,7 +35,7 @@ class ActiveRecord
     public static function findOneByPk($id)
     {
         $class = get_called_class();
-        $sql = 'SELECT * FROM ' . static::$table . ' WHERE article_id=:id';
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
 
         $db = new DB();
         $db->setClassName($class);

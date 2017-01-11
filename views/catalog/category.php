@@ -39,7 +39,7 @@
 
                                         <h2>$<?= $product->price ?></h2>
 
-                                        <p><a href="product/<?= $product->id ?>"><?= $product->name ?></a></p>
+                                        <p><a href="/product/<?= $product->id ?>"><?= $product->name ?></a></p>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>В
                                             корзину</a>
