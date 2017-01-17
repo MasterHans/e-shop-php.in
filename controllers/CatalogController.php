@@ -20,10 +20,13 @@ class CatalogController
         return true;
     }
 
-    public function actionCategory($categoryId)
+    public function actionCategory($categoryId, $page = 1)
     {
+        echo 'Category: ' . $categoryId;
+        echo '<br>Page:' . $page;
+
         $categories = Category::getCategoriesList();
-        $categoryProducts = Product::getProductsListByCategory($categoryId);
+        $categoryProducts = Product::getProductsListByCategory($categoryId, $page);
 
         $view = new View();
         $view->categoryId = $categoryId;

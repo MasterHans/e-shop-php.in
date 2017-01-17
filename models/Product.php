@@ -28,13 +28,15 @@ class Product extends ActiveRecord
 
     }
 
-    public static function getProductsListByCategory($categoryId = false)
+    public static function getProductsListByCategory($categoryId = false, $page = 1)
     {
+        $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
 
         $sql = 'SELECT id, name, price, image, is_new FROM ' . static::$table
             . ' WHERE status = "1" AND category_id = :category_id'
             . ' ORDER BY id DESC '
-            . ' LIMIT ' . self::SHOW_BY_DEFAULT;
+            . ' LIMIT ' . self::SHOW_BY_DEFAULT
+            . ' OFFSET ' . $offset;
 
         $db = new DB();
         $db->setClassName(get_called_class());
