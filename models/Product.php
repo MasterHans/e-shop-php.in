@@ -8,7 +8,7 @@ use App\Components\E404Exception;
 class Product extends ActiveRecord
 {
     protected static $table = 'product';
-    const SHOW_BY_DEFAULT = 10;
+    const SHOW_BY_DEFAULT = 2;
 
     /**
      * Returns an array of products
