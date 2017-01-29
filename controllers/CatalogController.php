@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Components\View;
+use App\Components\Pagination;
 
 class CatalogController
 {
@@ -28,9 +29,15 @@ class CatalogController
         $categories = Category::getCategoriesList();
         $categoryProducts = Product::getProductsListByCategory($categoryId, $page);
 
+        $total = Product::getTotalProductsInCategory($categoryId);
+
+        // Создаем объект Pagination - постраничная навигация
+        $pagination = new Pagination($total, $page, Product::SHOW_BY_DEFAULT, 'page-');
+
         $view = new View();
         $view->categoryId = $categoryId;
         $view->categories = $categories;
+        $view->pagination = $pagination;
         $view->categoryProducts = $categoryProducts;
         $view->display('catalog/category.php');
         return true;

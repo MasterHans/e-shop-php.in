@@ -8,7 +8,7 @@ use App\Components\E404Exception;
 class Product extends ActiveRecord
 {
     protected static $table = 'product';
-    const SHOW_BY_DEFAULT = 2;
+    const SHOW_BY_DEFAULT = 3;
 
     /**
      * Returns an array of products
@@ -51,5 +51,28 @@ class Product extends ActiveRecord
         }
         return false;
     }
+
+    /**
+     * Returns total products
+     */
+    public static function getTotalProductsInCategory($categoryId)
+    {
+        $sql = 'SELECT COUNT(id) AS count FROM ' . static::$table
+            . ' WHERE status = "1" AND category_id = :category_id';
+
+        $db = new DB();
+        $db->setClassName(get_called_class());
+        $res = $db->query($sql, [':category_id' => $categoryId]);
+
+        if (empty ($res))
+        {
+            $e = new E404Exception('Can not find category!');
+            throw $e;
+        } else {
+            return $res[0]->count;
+        }
+
+    }
+
 
 }

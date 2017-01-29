@@ -82,7 +82,8 @@ class ActiveRecord
 
         $db = new DB();
         $db->execute($sql,$data);
-        $this->article_id = $db->getLastRecID();
+        $this->id = $db->getLastRecID();
+        return $this->id;
     }
 
     protected function update()
@@ -91,7 +92,7 @@ class ActiveRecord
         $data = [];
         foreach ($this->data as $k => $v) {
             $data[':' . $k] = $v;
-            if ('article_id' == $k){
+            if ('id' == $k){
                 continue;
             }
             $cols[] = $k . '=:' . $k;
@@ -99,7 +100,7 @@ class ActiveRecord
         }
 
         $sql = 'UPDATE ' . static::$table . ' SET ' . implode(', ', $cols) .
-               ' WHERE article_id=:article_id';
+               ' WHERE id=:id';
 
         $db = new DB();
         $db->execute($sql, $data);
@@ -115,7 +116,7 @@ class ActiveRecord
         }
 
         $sql = 'DELETE FROM ' . static::$table .
-               ' WHERE article_id=:article_id';
+               ' WHERE id=:id';
 
         $db = new DB();
         $db->execute($sql, $data);
@@ -124,9 +125,9 @@ class ActiveRecord
     public function save()
     {
 
-        if (!isset($this->article_id))
+        if (!isset($this->id))
         {
-           $this->insert();
+           return $this->insert();
         } else
         {
            $this->update();
